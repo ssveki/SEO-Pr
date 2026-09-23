@@ -5,12 +5,38 @@ from .models import FAQ, BookingRequest, EventFormat, Hall, MenuPackage, Poster,
 
 @admin.register(Hall)
 class HallAdmin(admin.ModelAdmin):
-    list_display = ("name", "line_number", "capacity_banquet", "area", "price_from", "order", "is_active")
+    list_display = (
+        "name", "line_number", "capacity_banquet", "area",
+        "price_from", "order", "is_active",
+    )
     list_editable = ("order", "is_active")
-    # ПОДСКАЗКА: когда добавите поле slug, раскомментируйте —
-    # slug будет заполняться автоматически при вводе названия:
+    fieldsets = (
+        ("Основное", {
+            "fields": ("name", "order", "is_active"),
+        }),
+        ("Описание", {
+            "fields": ("short_description", "description", "features"),
+        }),
+        ("Параметры зала", {
+            "fields": (
+                "line_color", "line_number",
+                "capacity_banquet", "capacity_buffet",
+                "area", "price_from",
+            ),
+        }),
+        ("Оформление", {
+            "fields": ("image",),
+        }),
+        ("SEO (мета-теги)", {
+            "fields": ("meta_title", "meta_description"),
+            "description": (
+                "Оставьте пустыми — title и description сгенерируются автоматически. "
+                "Если заполните — будут использоваться ваши значения."
+            ),
+        }),
+    )
+    # ПОДСКАЗКА (Блок 6): когда добавите slug, раскомментируйте:
     # prepopulated_fields = {"slug": ("name",)}
-    # Внимание: автозаполнение транслитерирует кириллицу — проверьте результат!
 
 
 @admin.register(Poster)

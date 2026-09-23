@@ -37,11 +37,17 @@ class Hall(models.Model):
     )
 
     # SEO-ЗАДАНИЕ (управляемые мета-теги):
-    # ПОДСКАЗКА: хорошая практика — дать контент-менеджеру возможность задать
-    # title и description для каждой страницы вручную:
-    #     meta_title = models.CharField(max_length=70, blank=True)
-    #     meta_description = models.CharField(max_length=160, blank=True)
-    # а в шаблоне выводить их, если заполнены, иначе — сгенерированные.
+    # Поля ниже дают контент-менеджеру возможность задать title и description
+    # для страницы каждого зала вручную. Если оставить пустыми — сгенерируются
+    # автоматически методами get_meta_title() и get_meta_description().
+    meta_title = models.CharField(
+        "Meta Title", max_length=70, blank=True,
+        help_text="Если пусто — сгенерируется автоматически. Оптимум 50–65 символов.",
+    )
+    meta_description = models.CharField(
+        "Meta Description", max_length=160, blank=True,
+        help_text="Если пусто — сгенерируется автоматически. Оптимум 120–160 символов.",
+    )
 
     order = models.PositiveSmallIntegerField("Порядок", default=0)
     is_active = models.BooleanField("Показывать на сайте", default=True)
@@ -55,11 +61,24 @@ class Hall(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        # ПОДСКАЗКА: после добавления slug замените pk=self.pk на slug=self.slug
+        # ПОДСКАЗКА: после добавления slug (Блок 6) замените pk=self.pk на slug=self.slug
         return reverse("venue:hall_detail", kwargs={"pk": self.pk})
 
     def features_list(self):
         return [f.strip() for f in self.features.splitlines() if f.strip()]
+
+    def get_meta_title(self):
+        if self.meta_title:
+            return self.meta_title
+        return f"{self.name} — аренда зала в Чите | Подземка"
+
+    def get_meta_description(self):
+        if self.meta_description:
+            return self.meta_description
+        return (
+            f"{self.short_description} Вместимость до {self.capacity_banquet} гостей. "
+            "Забронируйте зал в «Подземке» в Чите."
+        )
 
 
 class EventFormat(models.Model):

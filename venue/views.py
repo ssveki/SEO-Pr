@@ -1,3 +1,13 @@
+import datetime
+
+from django.contrib import messages
+from django.db.models import Avg, Q
+from django.shortcuts import get_object_or_404, redirect, render
+
+from .forms import BookingForm
+from .models import FAQ, EventFormat, Hall, MenuPackage, Poster, Review
+
+
 def home(request):
     reviews = Review.objects.filter(is_published=True)
     context = {
@@ -38,14 +48,16 @@ def hall_detail(request, pk):
         "hall": hall,
         "others": others,
         "form": form,
-        "meta_title": getattr(hall, "get_meta_title", lambda: None)() or (
-            f"{hall.name} — аренда зала в Чите | Подземка"
-        ),
-        "meta_description": getattr(hall, "get_meta_description", lambda: None)() or (
-            f"{hall.short_description} Вместимость до {hall.capacity_banquet} гостей. "
-            "Забронируйте в «Подземке»."
-        ),
+        "meta_title": hall.get_meta_title(),
+        "meta_description": hall.get_meta_description(),
     })
+
+
+def upcoming_posters():
+    """Будущие события + регулярные (у них заполнено поле schedule)."""
+    return Poster.objects.filter(is_published=True).filter(
+        Q(date__gte=datetime.date.today()) | ~Q(schedule=""),
+    )
 
 
 def poster_list(request):
