@@ -50,6 +50,9 @@ def hall_detail(request, pk):
         "form": form,
         "meta_title": hall.get_meta_title(),
         "meta_description": hall.get_meta_description(),
+        "og_title": f"{hall.name} — зал в «Подземке»",
+        "og_description": hall.short_description,
+        "og_image_path": hall.image,
     })
 
 
@@ -81,6 +84,9 @@ def poster_detail(request, pk):
         "meta_description": (
             f"{poster.short_description} {date_human}, Чита. Билеты и бронь — на сайте «Подземки»."
         ),
+        "og_title": f"{poster.title} — {date_human}",
+        "og_description": poster.short_description,
+        "og_image_path": poster.image if poster.image else None,
     })
 
 

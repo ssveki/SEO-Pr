@@ -1,0 +1,15 @@
+{% load static %}
+<meta property="og:type" content="{% block og_type %}website{% endblock %}">
+<meta property="og:site_name" content="{{ site.name }}">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:title" content="{{ og_title|default:meta_title|default:site.name }}">
+<meta property="og:description" content="{{ og_description|default:meta_description|default:site.tagline }}">
+<meta property="og:url" content="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}">
+{% if og_image_path %}
+  <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static og_image_path %}">
+{% else %}
+  <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'img/og-default.jpg' %}">
+{% endif %}
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
