@@ -49,6 +49,11 @@ class Hall(models.Model):
         help_text="Если пусто — сгенерируется автоматически. Оптимум 120–160 символов.",
     )
 
+    updated_at = models.DateTimeField(
+        "Обновлено", auto_now=True,
+        help_text="Заполняется автоматически при каждом сохранении.",
+    )
+
     order = models.PositiveSmallIntegerField("Порядок", default=0)
     is_active = models.BooleanField("Показывать на сайте", default=True)
 

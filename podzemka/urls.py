@@ -1,13 +1,19 @@
 from django.contrib import admin
+from django.contrib.sitemaps.views import sitemap
 from django.urls import include, path
 from django.views.generic import TemplateView
 
-# SEO-ЗАДАНИЕ (sitemap.xml) — Блок 4, подключим здесь же позже.
+from venue.sitemaps import HallSitemap, PosterSitemap, StaticViewSitemap
+
+sitemaps = {
+    "static": StaticViewSitemap,
+    "halls": HallSitemap,
+    "posters": PosterSitemap,
+}
 
 urlpatterns = [
     path("admin/", admin.site.urls),
 
-    # robots.txt строго в корне, Content-Type: text/plain
     path(
         "robots.txt",
         TemplateView.as_view(
@@ -15,6 +21,13 @@ urlpatterns = [
             content_type="text/plain",
         ),
         name="robots_txt",
+    ),
+
+    path(
+        "sitemap.xml",
+        sitemap,
+        {"sitemaps": sitemaps},
+        name="django.contrib.sitemaps.views.sitemap",
     ),
 
     path("", include("venue.urls")),
