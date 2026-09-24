@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /booking/
+Disallow: /home/
+
+Allow: /
+
+Sitemap: https://{{ site.domain }}/sitemap.xml
