@@ -1,6 +1,46 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block extra_head %}
+{% if faqs %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {% for q in faqs %}
+    {
+      "@type": "Question",
+      "name": "{{ q.question|escapejs }}",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "{{ q.answer|escapejs }}"
+      }
+    }{% if not forloop.last %},{% endif %}
+    {% endfor %}
+  ]
+}
+</script>
+{% endif %}
+{% if rating and reviews_count %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "EventVenue",
+  "name": "{{ site.name|escapejs }}",
+  "url": "{{ request.scheme }}://{{ request.get_host }}/",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "{{ rating|floatformat:1 }}",
+    "reviewCount": "{{ reviews_count }}",
+    "bestRating": "5",
+    "worstRating": "1"
+  }
+}
+</script>
+{% endif %}
+{% endblock %}
+
 {# SEO-ЗАДАНИЕ: на главной нет своего title и description — переопределите блоки. #}
 {# Какие ключевые запросы должна закрывать главная? Например: «банкетный зал в стиле лофт чита». #}
 

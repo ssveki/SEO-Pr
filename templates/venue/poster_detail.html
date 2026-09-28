@@ -1,6 +1,58 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block extra_head %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "{{ poster.title|escapejs }}",
+  {% if not poster.schedule %}
+  "startDate": "{{ poster.date|date:'Y-m-d' }}{% if poster.time %}T{{ poster.time|time:'H:i' }}:00+09:00{% endif %}",
+  {% else %}
+  "startDate": "{{ poster.date|date:'Y-m-d' }}{% if poster.time %}T{{ poster.time|time:'H:i' }}:00+09:00{% endif %}",
+  {% endif %}
+  "eventStatus": "https://schema.org/{% if is_past %}EventCancelled{% else %}EventScheduled{% endif %}",
+  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+  {% if poster.image %}
+  "image": "{{ request.scheme }}://{{ request.get_host }}{% static poster.image %}",
+  {% endif %}
+  "description": "{{ poster.short_description|escapejs }}",
+  {% if poster.organizer %}
+  "organizer": {
+    "@type": "Organization",
+    "name": "{{ poster.organizer|escapejs }}"
+  },
+  {% else %}
+  "organizer": {
+    "@type": "Organization",
+    "name": "{{ site.name|escapejs }}"
+  },
+  {% endif %}
+  "location": {
+    "@type": "Place",
+    "name": "{{ site.name|escapejs }}",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "{{ site.street|escapejs }}",
+      "addressLocality": "{{ site.city|escapejs }}",
+      "addressRegion": "{{ site.region|escapejs }}",
+      "postalCode": "{{ site.postal_code|escapejs }}",
+      "addressCountry": "{{ site.country|escapejs }}"
+    }
+  }
+  {% if poster.schedule %},
+  "eventSchedule": {
+    "@type": "Schedule",
+    "repeatFrequency": "P1D",
+    "startTime": "{% if poster.time %}{{ poster.time|time:'H:i' }}{% else %}12:00{% endif %}",
+    "description": "{{ poster.schedule|escapejs }}"
+  }
+  {% endif %}
+}
+</script>
+{% endblock %}
+
 {# ================================================================== #}
 {# SEO-ЗАДАНИЕ: динамические title и description события, например:   #}
 {#   «{{ poster.title }}: квиз по теме «{{ poster.topic }}» — {{ poster.date|date:"j E" }} | Подземка» #}
@@ -20,6 +72,17 @@
     <a href="{% url 'venue:poster_list' %}">Афиша</a> <span>/</span>
     <span>{{ poster.title }}</span>
   </nav>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Главная", "item": "{{ request.scheme }}://{{ request.get_host }}/"},
+      {"@type": "ListItem", "position": 2, "name": "Афиша", "item": "{{ request.scheme }}://{{ request.get_host }}{% url 'venue:poster_list' %}"},
+      {"@type": "ListItem", "position": 3, "name": "{{ poster.title|escapejs }}"}
+    ]
+  }
+  </script>
 {% endblock %}
 
 {% block content %}

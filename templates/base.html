@@ -1,4 +1,5 @@
-{% load static %}<!DOCTYPE html>
+{% load static %}
+<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="utf-8">
@@ -18,6 +19,37 @@
   <meta name="theme-color" content="#111111">
 
   {% include "includes/og.html" %}
+
+    {# Schema.org: организация EventVenue #}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "EventVenue",
+    "name": "{{ site.name|escapejs }}",
+    "legalName": "{{ site.legal_name|escapejs }}",
+    "url": "{{ request.scheme }}://{{ request.get_host }}/",
+    "telephone": "{{ site.phone_raw|escapejs }}",
+    "description": "{{ site.tagline|escapejs }}",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "{{ site.street|escapejs }}",
+      "addressLocality": "{{ site.city|escapejs }}",
+      "addressRegion": "{{ site.region|escapejs }}",
+      "postalCode": "{{ site.postal_code|escapejs }}",
+      "addressCountry": "{{ site.country|escapejs }}"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "{{ site.geo.lat }}",
+      "longitude": "{{ site.geo.lon }}"
+    },
+    "openingHours": "Mo-Su 12:00-02:00",
+    "sameAs": [
+      "{{ site.telegram|escapejs }}",
+      "{{ site.vk|escapejs }}"
+    ]
+  }
+  </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
