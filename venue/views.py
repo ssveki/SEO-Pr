@@ -124,10 +124,10 @@ def events(request):
 
 def gallery(request):
     photos = [
-        {"src": "img/hall-depo.jpg", "caption": "Зал «Депо»"},
+        {"src": "img/hall-depo.webp", "caption": "Зал «Депо»"},
         {"src": "img/hall-tonnel.webp", "caption": "Зал «Тоннель»"},
-        {"src": "img/hall-platforma.jpg", "caption": "Зал «Платформа»"},
-        {"src": "img/hall-vestibul.jpg", "caption": "Бар «Вестибюль»"},
+        {"src": "img/hall-platforma.webp", "caption": "Зал «Платформа»"},
+        {"src": "img/hall-vestibul.webp", "caption": "Бар «Вестибюль»"},
     ]
     return render(request, "venue/gallery.html", {
         "photos": photos,

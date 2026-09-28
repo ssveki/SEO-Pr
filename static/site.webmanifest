@@ -1,0 +1,21 @@
+{
+  "name": "Подземка — банкетный зал в Чите",
+  "short_name": "Подземка",
+  "description": "Банкетный зал в стиле лофт и андеграунд в Чите",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#111111",
+  "theme_color": "#111111",
+  "icons": [
+    {
+      "src": "/static/img/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/static/img/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}

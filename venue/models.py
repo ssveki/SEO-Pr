@@ -39,7 +39,7 @@ class Hall(models.Model):
         help_text="Каждая особенность — с новой строки",
     )
     image = models.CharField(
-        "Картинка (путь в static)", max_length=200, default="img/hall-depo.jpg",
+        "Картинка (путь в static)", max_length=200, default="img/hall-depo.webp",
     )
 
     # SEO-ЗАДАНИЕ (управляемые мета-теги):

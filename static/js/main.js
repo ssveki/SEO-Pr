@@ -142,3 +142,11 @@ if (lightboxLinks.length) {
     if (e.key === "ArrowRight") show(current + 1);
   });
 }
+
+// Яндекс.Метрика: цель «Отправка формы бронирования»
+document.addEventListener('DOMContentLoaded', function () {
+  var successAlert = document.querySelector('.alert--success');
+  if (successAlert && typeof ym === 'function') {
+    ym(XXXXXXX, 'reachGoal', 'booking_form_submit');
+  }
+});
