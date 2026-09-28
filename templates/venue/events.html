@@ -5,7 +5,6 @@
 {# страницу (/events/svadby/, /events/korporativy/) со своим h1, текстом и title. #}
 {# Почему это важно для продвижения по запросам «зал для свадьбы в стиле лофт»?  #}
 
-{% block content %}
 {% block breadcrumbs %}
   <nav class="container breadcrumbs mono" aria-label="Хлебные крошки">
     <a href="{% url 'venue:home' %}">Главная</a> <span>/</span>
@@ -13,10 +12,13 @@
   </nav>
 {% endblock %}
 
+
+{% block content %}
+
 <section class="page-head">
   <div class="container">
     <p class="mono muted">Форматы</p>
-    <h1 class="page-head__title">Форматы мероприятий — свадьбы, корпоративы, дни рождения</h1>
+    <h1 class="page-head__title">Форматы мероприятий</h1>
     <p class="page-head__lead">Проводим события любого масштаба — от ужина на 20 человек до концерта на 350.</p>
   </div>
 </section>

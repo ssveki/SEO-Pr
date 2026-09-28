@@ -3,7 +3,6 @@
 {# SEO-ЗАДАНИЕ: title/description. Какие запросы? «банкетное меню цена на человека», «меню на свадьбу» ... #}
 {# Задание со звёздочкой: разметьте меню через Schema.org Menu / Offer. #}
 
-{% block content %}
 {% block breadcrumbs %}
   <nav class="container breadcrumbs mono" aria-label="Хлебные крошки">
     <a href="{% url 'venue:home' %}">Главная</a> <span>/</span>
@@ -11,10 +10,12 @@
   </nav>
 {% endblock %}
 
+{% block content %}
+
 <section class="page-head">
   <div class="container">
     <p class="mono muted">Кухня и бар</p>
-    <h1 class="page-head__title">Банкетное меню в Чите — сеты от 1900 ₽ на человека</h1>
+    <h1 class="page-head__title">Банкетное меню в Чите</h1>
     <p class="page-head__lead">Сеты от шефа на любой бюджет. Итоговое меню собираем вместе с вами на дегустации.</p>
   </div>
 </section>

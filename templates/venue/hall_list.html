@@ -4,7 +4,6 @@
 {# SEO-ЗАДАНИЕ: title и description для страницы списка залов. #}
 {# Пример title: «Залы для банкета в стиле лофт на 30–350 гостей | Подземка» #}
 
-{% block content %}
 {% block breadcrumbs %}
   <nav class="container breadcrumbs mono" aria-label="Хлебные крошки">
     <a href="{% url 'venue:home' %}">Главная</a> <span>/</span>
@@ -12,12 +11,14 @@
   </nav>
 {% endblock %}
 
+{% block content %}
+
 <section class="page-head">
   <div class="container">
     <p class="mono muted">Схема линий</p>
-    <h1 class="page-head__title">Банкетные залы в стиле лофт на 30–350 гостей</h1>
+    <h1 class="page-head__title">Банкетные залы в стиле лофт</h1>
     {# SEO-ПОДСКАЗКА: h1 «Залы» слишком общий. Добавьте ключ: «Банкетные залы в стиле лофт». #}
-    <p class="page-head__lead">Четыре зала: от камерного «Тоннеля» на 30 гостей до всей площадки на 350.</p>
+    <p class="page-head__lead">Банкетные залы в стиле лофт в Чите: четыре пространства — от камерного «Тоннеля» на 30 гостей до всей площадки на 350.</p>
   </div>
 </section>
 

@@ -3,7 +3,6 @@
 
 {# SEO-ЗАДАНИЕ: title/description для галереи. #}
 
-{% block content %}
 {% block breadcrumbs %}
   <nav class="container breadcrumbs mono" aria-label="Хлебные крошки">
     <a href="{% url 'venue:home' %}">Главная</a> <span>/</span>
@@ -11,12 +10,14 @@
   </nav>
 {% endblock %}
 
+{% block content %}
+
 <section class="page-head">
   <div class="container">
     <p class="mono muted">Фото</p>
     {# SEO-ЗАДАНИЕ: у этой страницы НЕТ h1 вообще — только h2. Исправьте. #}
-    <h1 class="page-head__title">Галерея залов в стиле лофт — Подземка, Чита</h1>
-    <p class="page-head__lead">Так выглядят залы без гостей. Фото с мероприятий — в наших соцсетях.</p>
+    <h1 class="page-head__title">Галерея залов</h1>
+    <p class="page-head__lead">Галерея банкетных залов в стиле лофт в Чите. Так выглядят залы без гостей — фото с мероприятий в наших соцсетях.</p>
   </div>
 </section>
 

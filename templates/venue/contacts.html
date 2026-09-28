@@ -3,7 +3,6 @@
 {# SEO-ЗАДАНИЕ: title/description. Добавьте в них город и адрес — люди ищут «банкетный зал Чита», «банкет в центре Читы». #}
 {# SEO-ЗАДАНИЕ (локальное SEO): JSON-LD с PostalAddress, GeoCoordinates, openingHoursSpecification. #}
 
-{% block content %}
 {% block breadcrumbs %}
   <nav class="container breadcrumbs mono" aria-label="Хлебные крошки">
     <a href="{% url 'venue:home' %}">Главная</a> <span>/</span>
@@ -11,10 +10,12 @@
   </nav>
 {% endblock %}
 
+{% block content %}
+
 <section class="page-head">
   <div class="container">
     <p class="mono muted">Как добраться</p>
-    <h1 class="page-head__title">Контакты — банкетный зал «Подземка» в Чите</h1>
+    <h1 class="page-head__title">Контакты в Чите</h1>
   </div>
 </section>
 
