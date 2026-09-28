@@ -1,12 +1,18 @@
 from django.db import models
 from django.urls import reverse
 
+from .utils import make_slug
+
 
 class Hall(models.Model):
     """Зал (в стилистике сайта — «станция»)."""
 
     name = models.CharField("Название", max_length=100)
 
+    slug = models.SlugField(
+        "URL", max_length=150, unique=True, blank=True,
+        help_text="Заполнится автоматически из названия.",
+    )
     # SEO-ЗАДАНИЕ (ЧПУ — человекопонятные URL):
     # Сейчас залы открываются по адресу /halls/1/, /halls/2/ ... — это плохо для SEO.
     # ПОДСКАЗКА: добавьте поле
@@ -66,8 +72,7 @@ class Hall(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        # ПОДСКАЗКА: после добавления slug (Блок 6) замените pk=self.pk на slug=self.slug
-        return reverse("venue:hall_detail", kwargs={"pk": self.pk})
+        return reverse("venue:poster_detail", kwargs={"slug": self.slug})
 
     def features_list(self):
         return [f.strip() for f in self.features.splitlines() if f.strip()]
@@ -84,6 +89,17 @@ class Hall(models.Model):
             f"{self.short_description} Вместимость до {self.capacity_banquet} гостей. "
             "Забронируйте зал в «Подземке» в Чите."
         )
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            base = make_slug(self.name)
+            slug = base
+            n = 1
+            while Hall.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+                n += 1
+                slug = f"{base}-{n}"
+            self.slug = slug
+        super().save(*args, **kwargs)
 
 
 class EventFormat(models.Model):
@@ -198,6 +214,10 @@ class Poster(models.Model):
     """Событие в афише: квиз, концерт, вечеринка — с конкретной датой."""
 
     title = models.CharField("Название", max_length=150)
+    slug = models.SlugField(
+        "URL", max_length=150, unique=True, null=True, blank=True,
+        help_text="Заполнится автоматически из названия.",
+    )
     topic = models.CharField("Тема", max_length=150, blank=True)
     organizer = models.CharField("Организатор", max_length=150, blank=True)
     date = models.DateField("Дата", help_text="Для регулярного события — дата первого проведения")
@@ -226,5 +246,16 @@ class Poster(models.Model):
     def __str__(self):
         return f"{self.title} ({self.date:%d.%m.%Y})"
 
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            base = make_slug(self.title)
+            slug = base
+            n = 1
+            while Poster.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+                n += 1
+                slug = f"{base}-{n}"
+            self.slug = slug
+        super().save(*args, **kwargs)
+
     def get_absolute_url(self):
-        return reverse("venue:poster_detail", kwargs={"pk": self.pk})
+        return reverse("venue:poster_detail", kwargs={"slug": self.slug})

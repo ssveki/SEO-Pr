@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Страница не найдена — Подземка{% endblock %}
+{% block description %}Такой страницы на сайте «Подземки» нет. Вернитесь на главную или посмотрите залы и афишу.{% endblock %}
+{% block robots %}<meta name="robots" content="noindex, follow">{% endblock %}
+
+{% block content %}
+<section class="page-head">
+  <div class="container">
+    <p class="mono muted">Ошибка 404</p>
+    <h1 class="page-head__title">Страница не найдена</h1>
+    <p class="page-head__lead">Кажется, вы свернули не на ту станцию. Такой страницы нет или она переехала.</p>
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="container">
+    <p>Что можно сделать:</p>
+    <ul>
+      <li><a href="{% url 'venue:home' %}">Вернуться на главную</a></li>
+      <li><a href="{% url 'venue:hall_list' %}">Посмотреть банкетные залы</a></li>
+      <li><a href="{% url 'venue:poster_list' %}">Открыть афишу событий</a></li>
+      <li><a href="{% url 'venue:contacts' %}">Связаться с нами</a></li>
+    </ul>
+    <p class="muted">Если вы уверены, что страница должна быть — напишите нам: {{ site.email }}.</p>
+  </div>
+</section>
+{% endblock %}

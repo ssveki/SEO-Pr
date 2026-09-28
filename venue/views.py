@@ -40,8 +40,8 @@ def hall_list(request):
     })
 
 
-def hall_detail(request, pk):
-    hall = get_object_or_404(Hall, pk=pk, is_active=True)
+def hall_detail(request, slug):
+    hall = get_object_or_404(Hall, slug=slug, is_active=True)
     others = Hall.objects.filter(is_active=True).exclude(pk=hall.pk)
     form = BookingForm(initial={"hall": hall})
     return render(request, "venue/hall_detail.html", {
@@ -54,6 +54,10 @@ def hall_detail(request, pk):
         "og_description": hall.short_description,
         "og_image_path": hall.image,
     })
+
+def hall_redirect(request, pk):
+    hall = get_object_or_404(Hall, pk=pk)
+    return redirect("venue:hall_detail", slug=hall.slug, permanent=True)
 
 
 def upcoming_posters():
@@ -74,8 +78,8 @@ def poster_list(request):
     })
 
 
-def poster_detail(request, pk):
-    poster = get_object_or_404(Poster, pk=pk, is_published=True)
+def poster_detail(request, slug):
+    poster = get_object_or_404(Poster, slug=slug, is_published=True)
     date_human = poster.date.strftime("%d.%m.%Y")
     return render(request, "venue/poster_detail.html", {
         "poster": poster,
@@ -88,6 +92,11 @@ def poster_detail(request, pk):
         "og_description": poster.short_description,
         "og_image_path": poster.image if poster.image else None,
     })
+
+
+def poster_redirect(request, pk):
+    poster = get_object_or_404(Poster, pk=pk)
+    return redirect("venue:poster_detail", slug=poster.slug, permanent=True)
 
 
 def menu(request):

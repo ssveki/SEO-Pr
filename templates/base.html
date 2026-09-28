@@ -4,10 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>{% block title %}{{ meta_title|default:"Подземка — банкетный зал в стиле лофт в Чите" }}{% endblock %}</title>
-
-  <meta name="description"
-        content="{% block description %}{{ meta_description|default:"Банкетный зал «Подземка» в Чите: лофт и андеграунд. Свадьбы, корпоративы, дни рождения и квизы. Забронируйте мероприятие онлайн." }}{% endblock %}">
+  <title>{% block title %}{% firstof meta_title "Подземка — банкетный зал в стиле лофт в Чите" %}{% endblock %}</title>
+<meta name="description" content="{% block description %}{% firstof meta_description "Банкетный зал «Подземка» в Чите: лофт и андеграунд..." %}{% endblock %}">
 
   <link rel="canonical"
         href="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}">

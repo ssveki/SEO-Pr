@@ -2,8 +2,8 @@
 <meta property="og:type" content="{% block og_type %}website{% endblock %}">
 <meta property="og:site_name" content="{{ site.name }}">
 <meta property="og:locale" content="ru_RU">
-<meta property="og:title" content="{{ og_title|default:meta_title|default:site.name }}">
-<meta property="og:description" content="{{ og_description|default:meta_description|default:site.tagline }}">
+<meta property="og:title" content="{% firstof og_title meta_title site.name %}">
+<meta property="og:description" content="{% firstof og_description meta_description site.tagline %}">
 <meta property="og:url" content="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}">
 {% if og_image_path %}
   <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static og_image_path %}">
