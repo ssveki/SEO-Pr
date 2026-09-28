@@ -4,10 +4,17 @@
 {# SEO-ЗАДАНИЕ (локальное SEO): JSON-LD с PostalAddress, GeoCoordinates, openingHoursSpecification. #}
 
 {% block content %}
+{% block breadcrumbs %}
+  <nav class="container breadcrumbs mono" aria-label="Хлебные крошки">
+    <a href="{% url 'venue:home' %}">Главная</a> <span>/</span>
+    <span>Контакты</span>
+  </nav>
+{% endblock %}
+
 <section class="page-head">
   <div class="container">
     <p class="mono muted">Как добраться</p>
-    <h1 class="page-head__title">Контакты</h1>
+    <h1 class="page-head__title">Контакты — банкетный зал «Подземка» в Чите</h1>
   </div>
 </section>
 
@@ -35,7 +42,10 @@
       <div class="map-embed">
         <a href="https://yandex.ru/maps/68/chita/?utm_medium=mapframe&utm_source=maps" class="map-embed__credit">Чита</a>
         <a href="https://yandex.ru/maps/68/chita/house/ulitsa_kurnatovskogo_17/ZUgFaANpSkUCWEJvYWJxcnlmZwg=/?ll=113.493054%2C52.035530&utm_medium=mapframe&utm_source=maps&z=16" class="map-embed__credit map-embed__credit--2">Улица Курнатовского, 17 на карте Читы — Яндекс Карты</a>
-        <iframe src="https://yandex.ru/map-widget/v1/?ll=113.493054%2C52.035530&mode=whatshere&whatshere%5Bpoint%5D=113.493054%2C52.035530&whatshere%5Bzoom%5D=17&z=16" allowfullscreen="true"></iframe>
+        <iframe src="https://yandex.ru/map-widget/v1/?ll=..."
+          title="Карта: банкетный зал «Подземка», улица Курнатовского, 17, Чита"
+          loading="lazy"
+          allowfullscreen="true"></iframe>
       </div>
     </div>
   </div>

@@ -4,11 +4,18 @@
 {# SEO-ЗАДАНИЕ: title/description для галереи. #}
 
 {% block content %}
+{% block breadcrumbs %}
+  <nav class="container breadcrumbs mono" aria-label="Хлебные крошки">
+    <a href="{% url 'venue:home' %}">Главная</a> <span>/</span>
+    <span>Галерея</span>
+  </nav>
+{% endblock %}
+
 <section class="page-head">
   <div class="container">
     <p class="mono muted">Фото</p>
     {# SEO-ЗАДАНИЕ: у этой страницы НЕТ h1 вообще — только h2. Исправьте. #}
-    <h2 class="page-head__title">Галерея</h2>
+    <h1 class="page-head__title">Галерея залов в стиле лофт — Подземка, Чита</h1>
     <p class="page-head__lead">Так выглядят залы без гостей. Фото с мероприятий — в наших соцсетях.</p>
   </div>
 </section>
@@ -27,7 +34,9 @@
         {#  5. Названия файлов — латиницей и по смыслу (как сейчас) — ок.   #}
         {# ============================================================== #}
         <a href="{% static photo.src %}" class="gallery__link" data-lightbox="{{ photo.caption }}">
-          <img src="{% static photo.src %}">
+          <img src="{% static photo.src %}"
+               alt="{{ photo.caption }} — банкетный зал «Подземка» в Чите"
+               width="800" height="600" loading="lazy">
         </a>
         <figcaption class="mono">{{ photo.caption }}</figcaption>
       </figure>

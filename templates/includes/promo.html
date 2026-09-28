@@ -12,7 +12,9 @@
       {# Исходный файл в корне репозитория назывался                      #}
       {# «jZtXzb4tLohZu9NJ....jpg» — почему такое имя плохо для SEO?      #}
       {# ================================================================ #}
-      <img src="{% static promo.host_photo %}">
+      <img src="{% static promo.host_photo %}"
+       alt="{{ promo.host_name }} — ведущий мероприятий в «Подземке»"
+       width="600" height="400" loading="lazy">
       <span class="promo__badge">−{{ promo.discount }}%</span>
     </div>
 

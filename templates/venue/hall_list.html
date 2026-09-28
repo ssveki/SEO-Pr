@@ -5,10 +5,17 @@
 {# Пример title: «Залы для банкета в стиле лофт на 30–350 гостей | Подземка» #}
 
 {% block content %}
+{% block breadcrumbs %}
+  <nav class="container breadcrumbs mono" aria-label="Хлебные крошки">
+    <a href="{% url 'venue:home' %}">Главная</a> <span>/</span>
+    <span>Залы</span>
+  </nav>
+{% endblock %}
+
 <section class="page-head">
   <div class="container">
     <p class="mono muted">Схема линий</p>
-    <h1 class="page-head__title">Залы</h1>
+    <h1 class="page-head__title">Банкетные залы в стиле лофт на 30–350 гостей</h1>
     {# SEO-ПОДСКАЗКА: h1 «Залы» слишком общий. Добавьте ключ: «Банкетные залы в стиле лофт». #}
     <p class="page-head__lead">Четыре зала: от камерного «Тоннеля» на 30 гостей до всей площадки на 350.</p>
   </div>
@@ -21,7 +28,9 @@
         <a href="{{ hall.get_absolute_url }}" class="hall-card__img">
           {# SEO-ЗАДАНИЕ: alt="" у картинки зала. Напишите осмысленный alt: #}
           {# например: «Банкетный зал {{ hall.name }} в стиле лофт» #}
-          <img src="{% static hall.image %}" alt="">
+          <img src="{% static hall.image %}"
+               alt="Банкетный зал «{{ hall.name }}» в стиле лофт — {{ hall.capacity_banquet }} гостей"
+               width="800" height="600" loading="lazy">
           <span class="hall-card__line mono">Линия {{ hall.line_number }}</span>
         </a>
         <div class="hall-card__body">
@@ -34,7 +43,7 @@
             <li>от <b>{{ hall.price_from }}</b> ₽</li>
           </ul>
           {# SEO-ЗАДАНИЕ (анкоры): «Смотреть» → «Смотреть зал {{ hall.name }}» #}
-          <a href="{{ hall.get_absolute_url }}" class="link-arrow">Смотреть →</a>
+          <a href="{{ hall.get_absolute_url }}" class="link-arrow">Зал «{{ hall.name }}» — {{ hall.capacity_banquet }} гостей →</a>
         </div>
       </article>
     {% endfor %}
